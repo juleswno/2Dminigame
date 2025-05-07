@@ -1,40 +1,34 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-
-public class MiniGameTrigger : MonoBehaviour
+namespace Map
 {
-    public GameObject popupUI;             // 플레이어가 접근했을 때 보여줄 UI
-    public string sceneToLoad = "FlappyGame"; // 진입할 미니게임 씬 이름
-    private bool canEnter = false;         // 현재 상호작용 가능한 상태인지 여부
-
-
-    // 플레이어가 트리거 영역에 들어왔을 때 실행
-    void OnTriggerEnter2D(Collider2D other)
+    public class MiniGameTrigger : MonoBehaviour
     {
-        if (other.CompareTag("Player")) // 태그가 Player인 경우에만 반응
+        public GameObject popupUI;       // 스페이스바를 눌러 미니게임 시작 안내 UI
+        private bool canEnter = false;   // 진입 가능한 상태인지 저장
+        public string sceneToLoad = "FlappyGame"; // 이동할 씬 이름
+
+        void OnTriggerEnter2D(Collider2D other)
         {
-            popupUI.SetActive(true);    // 안내 UI 표시
-            canEnter = true;            // 상호작용 가능 상태로 변경
+            if (other.CompareTag("Player"))
+            {
+                popupUI.SetActive(true); // UI 보여주기
+                canEnter = true;
+            }
         }
-    }
 
-    // 플레이어가 트리거 영역에서 나갔을 때 실행
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
+        void OnTriggerExit2D(Collider2D other)
         {
-            popupUI.SetActive(false);   // UI 숨김
-            canEnter = false;           // 상호작용 불가 상태로 변경
+            if (other.CompareTag("Player"))
+            {
+                popupUI.SetActive(false); // UI 숨기기
+                canEnter = false;
+            }
         }
-    }
 
-    // 스페이스바 입력으로 씬 전환 처리
-    void Update()
-    {
-        if (canEnter && Input.GetKeyDown(KeyCode.Space))
+        void Update()
         {
-            SceneManager.LoadScene(sceneToLoad); // 설정된 미니게임 씬으로 이동
+            // 스페이스 누르면 씬 전환
+            if (canEnter && Input.GetKeyDown(KeyCode.Space))
+                SceneManager.LoadScene(sceneToLoad);
         }
     }
 }
-
