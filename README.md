@@ -4,6 +4,7 @@
 // JetBrains Rider 기반으로 개발되었으며, 씬 간 전환 및 점수 저장 기능을 포함하고 있습니다.
 
 
+
 # 구현 기능
 
 // 캐릭터 이동 (WASD, Rigidbody2D)
@@ -14,6 +15,7 @@
 // 게임 종료 후 자동 복귀 + 결과 UI 표시
 
 
+
 # 사용 기능
 
 // Unity 2022.3.17f
@@ -22,6 +24,8 @@
 // PlayerPrefs
 // SceneManager
 // Rigidbody2D / Collider2D / Trigger
+
+
 
 # 폴더 구조
 
@@ -54,11 +58,13 @@
 
 
 
+
 # 트러블슈팅
 
 // Trigger 감지 이슈
  // Player 오브젝트에 `"Player"` 태그가 없어서 OnTriggerEnter2D()가 작동하지 않음  
  // → 태그를 올바르게 지정한 후 정상 작동
+
 
 
 # 주의 사항
