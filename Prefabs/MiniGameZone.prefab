@@ -1,1 +1,11 @@
+오브젝트 이름: MiniGameZone
+타입: Empty GameObject
 
+구성:
+- BoxCollider2D
+  - Is Trigger: ✅ 
+- MiniGameTrigger.cs 스크립트 연결
+  - popupUI: Canvas 하위의 PopupUI GameObject 드래그하여 연결
+  - sceneToLoad: "FlappyGame" 또는 원하는 씬 이름
+
+설치 위치: MainMap.unity 안의 적절한 영역
