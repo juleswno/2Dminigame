@@ -1,33 +1,27 @@
-using UnityEngine;
-
-public class CameraFollow : MonoBehaviour
+namespace Map
 {
-    public Transform target;          // 따라갈 대상 
-    public float smoothSpeed = 5f;    // 카메라 이동 부드러움 정도
-    public Vector2 minBounds;         // 카메라가 이동 가능한 최소 위치 (왼쪽 아래)
-    public Vector2 maxBounds;         // 카메라가 이동 가능한 최대 위치 (오른쪽 위)
-
-    private Vector3 offset;           // 카메라와 타겟 사이 거리 
-
-    void Start()
+    public class CameraFollow : MonoBehaviour
     {
-        // 시작 시, 현재 카메라 위치와 타겟 사이의 거리 계산
-        offset = transform.position - target.position;
-    }
+        public Transform target;         // 따라갈 대상
+        public float smoothSpeed = 5f;   // 따라가는 속도
+        public Vector2 minBounds;        // 카메라 제한 최소
+        public Vector2 maxBounds;        // 카메라 제한 최대
+        private Vector3 offset;
 
-    void LateUpdate()
-    {
-        // 타겟을 따라가되, 초기 거리(offset)를 유지
-        Vector3 desired = target.position + offset;
+        void Start() => offset = transform.position - target.position;
 
-        // z값은 카메라의 고정 위치 유지
-        desired.z = transform.position.z;
+        void LateUpdate()
+        {
+            // 플레이어 위치 + 간격 계산
+            Vector3 desiredPosition = target.position + offset;
+            desiredPosition.z = transform.position.z;
 
-        // 카메라가 지정된 경계를 벗어나지 않도록 제한
-        desired.x = Mathf.Clamp(desired.x, minBounds.x, maxBounds.x);
-        desired.y = Mathf.Clamp(desired.y, minBounds.y, maxBounds.y);
+            // 맵 밖으로 안 나가도록 제한
+            desiredPosition.x = Mathf.Clamp(desiredPosition.x, minBounds.x, maxBounds.x);
+            desiredPosition.y = Mathf.Clamp(desiredPosition.y, minBounds.y, maxBounds.y);
 
-        // 현재 위치에서 목표 위치로 부드럽게 이동
-        transform.position = Vector3.Lerp(transform.position, desired, Time.deltaTime * smoothSpeed);
+            // 부드럽게 따라가기
+            transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * smoothSpeed);
+        }
     }
 }
