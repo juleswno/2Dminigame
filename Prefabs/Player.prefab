@@ -1,1 +1,16 @@
+오브젝트 이름: Player
+타입: 2D Sprite
 
+구성:
+- Rigidbody2D
+  - Body Type: Dynamic
+  - Gravity Scale: 0
+- BoxCollider2D
+  - 적절한 크기로 설정 (Sprite 이미지에 맞게)
+- 태그: Player // Trigger 감지용
+- PlayerController.cs 연결
+  - speed: 5 (또는 원하는 속도)
+
+추가:
+- Animator (필요 시)
+- SpriteRenderer
